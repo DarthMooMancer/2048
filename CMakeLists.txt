@@ -7,6 +7,7 @@ include_directories(include)
 set(SOURCES
 	src/main.cpp
 	src/input.cpp
+	src/window.cpp
 )
 
 add_executable(2048 ${SOURCES})

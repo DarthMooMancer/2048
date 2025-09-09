@@ -1,0 +1,17 @@
+#include "window.hpp"
+#include <iomanip>
+#include <iostream>
+#include <thread>
+
+void Window::draw_window() {
+	// for(std::array<int, COL> &row : m_board) { row.fill(0); }
+	std::cout << "\033[H" << std::flush;
+	for(int i = 0; i < ROW; i++) {
+		for(int j = 0; j < COL; j++) {
+			if(m_board[i][j] == 0) std::cout << std::setw(4) << '.';
+			else std::cout << std::setw(4) << m_board[i][j];
+		}
+		std::cout << "\r\n";
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(200));
+}
