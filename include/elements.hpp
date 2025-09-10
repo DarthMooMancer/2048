@@ -1,0 +1,23 @@
+#ifndef ELEMENTS_HPP
+#define ELEMENTS_HPP
+
+#include <vector>
+#include "globals.hpp"
+
+struct Point {
+	Point() : m_row(0), m_col(0), m_symbol(2), m_direction('n') {};
+	Point(int row, int col) : m_row(row), m_col(col), m_symbol(2), m_direction('n') {};
+	char m_direction;
+	int m_row;
+	int m_col;
+	int m_symbol;
+	void assign(int row, int col);
+};
+
+struct PointCollection {
+	std::vector<Point> m_point_list;
+	void move();
+	void set_direction(char direction);
+};
+
+#endif

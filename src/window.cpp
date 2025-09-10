@@ -1,10 +1,14 @@
 #include "window.hpp"
+#include <array>
 #include <iomanip>
 #include <iostream>
 #include <thread>
 
-void Window::draw_window() {
-	// for(std::array<int, COL> &row : m_board) { row.fill(0); }
+void Window::draw_window(PointCollection &collection) {
+	for(std::array<int, COL> &row : m_board) { row.fill(0); }
+	for(int i = collection.m_point_list.size() - 1; i >= 0; i--) {
+		m_board[collection.m_point_list[i].m_row][collection.m_point_list[i].m_col] = collection.m_point_list[i].m_symbol;
+	}
 	std::cout << "\033[H" << std::flush;
 	for(int i = 0; i < ROW; i++) {
 		for(int j = 0; j < COL; j++) {
@@ -13,5 +17,5 @@ void Window::draw_window() {
 		}
 		std::cout << "\r\n";
 	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	std::this_thread::sleep_for(std::chrono::milliseconds(33));
 }
