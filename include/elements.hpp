@@ -11,6 +11,7 @@ struct Point {
 	int m_row;
 	int m_col;
 	int m_symbol;
+	void assign();
 	void assign(int row, int col);
 };
 
@@ -18,6 +19,7 @@ struct PointCollection {
 	std::vector<Point> m_point_list;
 	void move();
 	void set_direction(char direction);
+	void check_collision();
 };
 
 #endif

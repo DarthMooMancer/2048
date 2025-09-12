@@ -1,4 +1,12 @@
 #include "elements.hpp"
+#include <cstdlib>
+#include <ctime>
+
+void Point::assign() {
+	std::srand(std::time(0));
+	m_row = (rand() % (ROW));
+	m_col = (rand() % (ROW));
+}
 
 void Point::assign(int row, int col) {
 	m_row = row;
@@ -25,6 +33,19 @@ void PointCollection::move() {
 		} else if(m_point_list[i].m_direction == 'r') {
 			if(m_point_list[i].m_col >= COL - 1) continue;
 			m_point_list[i].assign(m_point_list[i].m_row, m_point_list[i].m_col + 1);
+		}
+	}
+}
+
+void PointCollection::check_collision() {
+	for(int i = m_point_list.size() - 1; i >= 0; i--) {
+		if(m_point_list[i].m_direction == 'u') {
+		}
+		if(m_point_list[i].m_direction == 'd') {
+		}
+		if(m_point_list[i].m_direction == 'l') {
+		}
+		if(m_point_list[i].m_direction == 'r') {
 		}
 	}
 }

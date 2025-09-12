@@ -12,6 +12,7 @@ int main() {
 	std::thread input_thread(&Input::get_input, &input, std::ref(running), std::ref(collection));
 
 	collection.m_point_list.push_back(Point());
+	collection.m_point_list.back().assign();
 
 	while (running) {
 		collection.move();

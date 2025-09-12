@@ -17,5 +17,5 @@ void Window::draw_window(PointCollection &collection) {
 		}
 		std::cout << "\r\n";
 	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(33));
+	std::this_thread::sleep_for(std::chrono::milliseconds(16));
 }
