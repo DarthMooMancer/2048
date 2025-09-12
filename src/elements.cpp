@@ -40,6 +40,13 @@ void PointCollection::move() {
 void PointCollection::check_collision() {
 	for(int i = m_point_list.size() - 1; i >= 0; i--) {
 		if(m_point_list[i].m_direction == 'u') {
+			// if(m_point_list[i + 1].m_row == m_point_list[i].m_row || m_point_list[i - 1].m_row == m_point_list[i].m_row) {
+			// 	if(m_point_list[i + 1].m_col == m_point_list[i].m_col || m_point_list[i - 1].m_col < m_point_list[i].m_col) {
+			// 		if(m_point_list[i].m_row > m_point_list[i + 1].m_row || m_point_list[i].m_row > m_point_list[i - 1].m_row) {
+			// 			m_point_list[i].m_row += 1;
+			// 		}
+			// 	}
+			// }
 		}
 		if(m_point_list[i].m_direction == 'd') {
 		}

@@ -15,6 +15,7 @@ int main() {
 	collection.m_point_list.back().assign();
 
 	while (running) {
+		collection.check_collision();
 		collection.move();
 		window.draw_window(collection);
 	}
