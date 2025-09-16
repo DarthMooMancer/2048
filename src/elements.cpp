@@ -1,6 +1,9 @@
 #include "elements.hpp"
+#include "globals.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <string>
 
 void Point::assign() {
 	std::srand(std::time(0));
@@ -11,6 +14,10 @@ void Point::assign() {
 void Point::assign(int row, int col) {
 	m_row = row;
 	m_col = col;
+}
+
+std::string Point::to_string() {
+	return "(" + std::to_string(m_row) + ", " + std::to_string(m_col) + " )\n";
 }
 
 void PointCollection::set_direction(char direction) {
@@ -37,22 +44,40 @@ void PointCollection::move() {
 	}
 }
 
-void PointCollection::check_collision() {
-	for(int i = m_point_list.size() - 1; i >= 0; i--) {
-		if(m_point_list[i].m_direction == 'u') {
-			// if(m_point_list[i + 1].m_row == m_point_list[i].m_row || m_point_list[i - 1].m_row == m_point_list[i].m_row) {
-			// 	if(m_point_list[i + 1].m_col == m_point_list[i].m_col || m_point_list[i - 1].m_col < m_point_list[i].m_col) {
-			// 		if(m_point_list[i].m_row > m_point_list[i + 1].m_row || m_point_list[i].m_row > m_point_list[i - 1].m_row) {
-			// 			m_point_list[i].m_row += 1;
+// bool _check_collision(Point &a, Point &b) {
+// 	if(a.m_row == b.m_row && a.m_col == b.m_col && a.m_symbol == b.m_symbol) {
+// 		return true;
+// 	}
+// 	return false;
+// }
+
+// void PointCollection::check_collision() {
+	// for(int i = m_point_list.size() - 1; i >= 0; i--) {
+	// 	for(int a = m_point_list.size() - 1; a >= 0; a--) {
+	// 		if (i == a) continue;
+	// 		_check_collision(m_point_list[i], m_point_list[a]);
+			// if(m_point_list[i].m_row == m_point_list[a].m_row) {
+			// 	if(m_point_list[i].m_col == m_point_list[a].m_col) {
+			// 		if (m_point_list[i].m_symbol == m_point_list[a].m_symbol) {
+			// 			if(m_point_list[i].m_direction == 'u') {
+			// 				if(!m_point_list[a].m_collide) {
+			// 					m_point_list[a].m_collide = true;
+			// 					m_point_list[a].m_symbol *= 2;
+			// 					m_point_list.erase(m_point_list.begin() + i);	
+			// 				}
+			// 				else {
+			// 					m_point_list[i].m_row++;
+			// 				}
+			// 			}
+			// 			if(m_point_list[i].m_direction == 'd') {
+			// 			}
+			// 			if(m_point_list[i].m_direction == 'l') {
+			// 			}
+			// 			if(m_point_list[i].m_direction == 'r') {
+			// 			}
 			// 		}
 			// 	}
 			// }
-		}
-		if(m_point_list[i].m_direction == 'd') {
-		}
-		if(m_point_list[i].m_direction == 'l') {
-		}
-		if(m_point_list[i].m_direction == 'r') {
-		}
-	}
-}
+// 		}
+// 	}
+// }
