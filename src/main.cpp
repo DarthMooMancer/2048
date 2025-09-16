@@ -11,6 +11,16 @@ bool _check_collision(Point &a, Point &b) {
 	return false;
 }
 
+void _handle_point(PointCollection &collection, int index, Point &a, Point &b) {
+	if(a.m_symbol == b.m_symbol && !b.m_collide) {
+		collection.m_point_list.erase(collection.m_point_list.begin() + index);
+		b.m_collide = true;
+	}
+	if(!b.m_collide) {
+		// set a to be one behind
+	}
+}
+
 int main() {
 	Input input;
 	Window window;
@@ -29,7 +39,7 @@ int main() {
 			for(int a = collection.m_point_list.size() - 1; a >= 0; a--) {
 				if (i == a) continue;
 				if(_check_collision(collection.m_point_list[i], collection.m_point_list[a])) {
-					std::cout << "Collision with " << collection.m_point_list[i].to_string() << " & " << collection.m_point_list[a].to_string() << "\n";
+					_handle_point(collection, i, collection.m_point_list[i], collection.m_point_list[a]);
 				}
 			}
 		}
