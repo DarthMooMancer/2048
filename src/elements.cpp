@@ -1,5 +1,4 @@
 #include "elements.hpp"
-#include "globals.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -26,58 +25,70 @@ void PointCollection::set_direction(char direction) {
 	}
 }
 
-void PointCollection::move() {
+void PointCollection::move(Point* m_board[ROW][COL]) {
 	for(int i = m_point_list.size() - 1; i >= 0; i--) {
-		if(m_point_list[i].m_direction == 'u') {
-			if(m_point_list[i].m_row <= 0) continue;
-			m_point_list[i].assign(m_point_list[i].m_row - 1, m_point_list[i].m_col);
-		} else if(m_point_list[i].m_direction == 'd') {
-			if(m_point_list[i].m_row >= ROW - 1) continue;
-			m_point_list[i].assign(m_point_list[i].m_row + 1, m_point_list[i].m_col);
-		} else if(m_point_list[i].m_direction == 'l') {
-			if(m_point_list[i].m_col <= 0) continue;
-			m_point_list[i].assign(m_point_list[i].m_row, m_point_list[i].m_col - 1);
-		} else if(m_point_list[i].m_direction == 'r') {
-			if(m_point_list[i].m_col >= COL - 1) continue;
-			m_point_list[i].assign(m_point_list[i].m_row, m_point_list[i].m_col + 1);
+		Point &p = m_point_list[i];
+
+		int cur_row = p.m_row;
+		int cur_col = p.m_col;
+		int new_row = cur_row;
+		int new_col = cur_col;
+
+		if(p.m_direction == 'u') {
+			Point *target = m_board[p.m_row - 1][p.m_col];
+			if(target == nullptr && p.m_row >= 0) {
+				new_row--;
+			}
+			else if(target->m_symbol == m_board[cur_row][cur_col]->m_symbol
+					&& !target->m_collide) {
+				target->m_symbol *= 2;
+				target->m_collide = true;
+				m_board[cur_row][cur_col] = nullptr;
+				continue;
+			}
 		}
+		else if(p.m_direction == 'd') {
+			Point *target = m_board[p.m_row + 1][p.m_col];
+
+			if(target == nullptr && p.m_row < ROW) {
+				new_row++;
+			}
+			else if(target->m_symbol == m_board[cur_row][cur_col]->m_symbol
+					&& !target->m_collide) {
+				target->m_symbol *= 2;
+				target->m_collide = true;
+				m_board[cur_row][cur_col] = nullptr;
+				continue;
+			}
+		} else if(p.m_direction == 'l') {
+			Point *target = m_board[p.m_row][p.m_col - 1];
+
+			if(target == nullptr && p.m_col >= 0) {
+				new_col--;
+			}
+			else if(target->m_symbol == m_board[cur_row][cur_col]->m_symbol
+					&& !target->m_collide) {
+				target->m_symbol *= 2;
+				target->m_collide = true;
+				m_board[cur_row][cur_col] = nullptr;
+				continue;
+			}
+		} else if(p.m_direction == 'r') {
+			Point *target = m_board[p.m_row][p.m_col + 1];
+
+			if(target == nullptr && p.m_col < ROW) {
+				new_col++;
+			}
+			else if(target->m_symbol == m_board[cur_row][cur_col]->m_symbol
+					&& !target->m_collide) {
+				target->m_symbol *= 2;
+				target->m_collide = true;
+				m_board[cur_row][cur_col] = nullptr;
+				continue;
+			}
+		}
+		m_board[p.m_row][p.m_col] = nullptr;
+		p.assign(new_row, new_col);
+		m_board[new_row][new_col] = &p;
 	}
 }
-
-// bool _check_collision(Point &a, Point &b) {
-// 	if(a.m_row == b.m_row && a.m_col == b.m_col && a.m_symbol == b.m_symbol) {
-// 		return true;
-// 	}
-// 	return false;
-// }
-
-// void PointCollection::check_collision() {
-	// for(int i = m_point_list.size() - 1; i >= 0; i--) {
-	// 	for(int a = m_point_list.size() - 1; a >= 0; a--) {
-	// 		if (i == a) continue;
-	// 		_check_collision(m_point_list[i], m_point_list[a]);
-			// if(m_point_list[i].m_row == m_point_list[a].m_row) {
-			// 	if(m_point_list[i].m_col == m_point_list[a].m_col) {
-			// 		if (m_point_list[i].m_symbol == m_point_list[a].m_symbol) {
-			// 			if(m_point_list[i].m_direction == 'u') {
-			// 				if(!m_point_list[a].m_collide) {
-			// 					m_point_list[a].m_collide = true;
-			// 					m_point_list[a].m_symbol *= 2;
-			// 					m_point_list.erase(m_point_list.begin() + i);	
-			// 				}
-			// 				else {
-			// 					m_point_list[i].m_row++;
-			// 				}
-			// 			}
-			// 			if(m_point_list[i].m_direction == 'd') {
-			// 			}
-			// 			if(m_point_list[i].m_direction == 'l') {
-			// 			}
-			// 			if(m_point_list[i].m_direction == 'r') {
-			// 			}
-			// 		}
-			// 	}
-			// }
-// 		}
-// 	}
-// }

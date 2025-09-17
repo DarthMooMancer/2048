@@ -2,6 +2,8 @@
 #define ELEMENTS_HPP
 
 #include <vector>
+#include <string>
+#include "globals.hpp"
 
 struct Point {
 	Point() : m_row(0), m_col(0), m_symbol(2), m_direction('n'), m_collide(false) {};
@@ -19,6 +21,7 @@ struct Point {
 struct PointCollection {
 	std::vector<Point> m_point_list;
 	void move();
+	void move(Point* m_board[ROW][COL]);
 	void set_direction(char direction);
 	void check_collision();
 };
