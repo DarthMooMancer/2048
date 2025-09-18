@@ -3,7 +3,6 @@
 #include <ctime>
 
 void Point::assign() {
-	std::srand(std::time(0));
 	m_row = (rand() % (ROW));
 	m_col = (rand() % (ROW));
 }
@@ -48,6 +47,52 @@ void PointCollection::move(Point* board[ROW][COL]) {
 					if(board[p->m_row][p->m_col + 1] != nullptr) continue;
 					p->m_col++;
 				}
+			}
+		}
+	}
+}
+
+void PointCollection::collide_with_adjacent(Point* board[ROW][COL]) {
+	for(int r = 0; r < ROW; r++) {
+		for(int c = 0; c < COL; c++) {
+			Point* p = board[r][c];
+			Point* npu = board[r - 1][c];
+			Point* npd = board[r + 1][c];
+			Point* npl = board[r][c - 1];
+			Point* npr = board[r][c + 1];
+			if(p != nullptr) {
+				if(p->m_direction == 'u' && npu != nullptr && npu->m_row >= 0) {
+					if(p->m_symbol != npu->m_symbol) continue;
+					npu->m_symbol *= 2;
+					board[r][c] = nullptr;
+					// Board is not cleared as the point still exists in m_points_list so it needs to be removed
+					// I recommend adding an id to the points to track which to remove and make a function in
+					// the PointCollection to remove the point
+				}
+				// else if(p->m_direction == 'd') {
+				// 	np = board[p->m_row + 1][p->m_col];
+				// 	if(np->m_row >= ROW - 1) continue;
+				// 	if(np == nullptr) continue;
+				// 	if(p->m_symbol != np->m_symbol) continue;
+				// 	board[r][c] = nullptr;
+				// 	np->m_symbol *= 2;
+				// }
+				// else if(p->m_direction == 'l') {
+				// 	np = board[p->m_row][p->m_col - 1];
+				// 	if(np->m_col <= 0) continue;
+				// 	if(np == nullptr) continue;
+				// 	if(p->m_symbol != np->m_symbol) continue;
+				// 	board[r][c] = nullptr;
+				// 	np->m_symbol *= 2;
+				// }
+				// else if(p->m_direction == 'r') {
+				// 	np = board[p->m_row][p->m_col + 1];
+				// 	if(np->m_col >= COL - 1) continue;
+				// 	if(np == nullptr) continue;
+				// 	if(p->m_symbol != np->m_symbol) continue;
+				// 	board[r][c] = nullptr;
+				// 	np->m_symbol *= 2;
+				// }
 			}
 		}
 	}
