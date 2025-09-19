@@ -3,8 +3,8 @@
 #include <ctime>
 
 void Point::assign() {
-	m_row = (rand() % (ROW));
-	m_col = (rand() % (ROW));
+	m_row = (rand() % ROW);
+	m_col = (rand() % COL);
 }
 
 void Point::assign(int row, int col) {
@@ -16,13 +16,24 @@ std::string Point::to_string() {
 	return "(" + std::to_string(m_row) + ", " + std::to_string(m_col) + " )\n";
 }
 
-void PointCollection::set_direction(char direction) {
-	for(int i = m_point_list.size() - 1; i >= 0; i--) {
-		m_point_list[i].m_direction = direction; 
+void PointCollection::set_direction(char direction, Point* board[ROW][COL]) {
+	for(int i = 0; i < ROW; i++) {
+		for(int j = 0; j < ROW; j++) {
+			if(board[i][j] == nullptr) continue;
+			board[i][j]->m_direction = direction;
+		}
 	}
 }
 
-void PointCollection::move(Point* board[ROW][COL]) {
+void create_point_on_board(Point* board[ROW][COL]) {
+	int row = (rand() % (ROW - 1));
+	int col = (rand() % (COL - 1));
+	if(board[row][col] == nullptr) {
+		board[row][col] = new Point(row, col);
+	}
+}
+
+void move(Point* board[ROW][COL]) {
 	for(int r = 0; r < ROW; r++) {
 		for(int c = 0; c < COL; c++) {
 			Point *p = board[r][c];
@@ -64,6 +75,7 @@ void PointCollection::collide_with_adjacent(Point* board[ROW][COL]) {
 				if(p->m_direction == 'u' && npu != nullptr && npu->m_row >= 0) {
 					if(p->m_symbol != npu->m_symbol) continue;
 					npu->m_symbol *= 2;
+					delete board[r][c];
 					board[r][c] = nullptr;
 					// Board is not cleared as the point still exists in m_points_list so it needs to be removed
 					// I recommend adding an id to the points to track which to remove and make a function in
