@@ -1,7 +1,7 @@
 #include "input.hpp"
 #include <ncurses.h>
 
-void Input::get_input(bool &running, PointCollection &collection, Point* board[ROW][COL]) {
+void Input::get_input(bool &running, Point* board[ROW][COL]) {
 	while (running) {
 		initscr();
 		cbreak();
@@ -12,27 +12,47 @@ void Input::get_input(bool &running, PointCollection &collection, Point* board[R
 
 		if(_getch == 65) {
 			_getch = 0;
-			collection.set_direction('u', board);
-			// collection.m_point_list.push_back(Point());
-			// collection.m_point_list.back().assign();
+			set_direction('u', board);
+			for(int i = 0; i < ROW; i++) {
+				for(int j = 0; j < ROW; j++) {
+					if(board[i][j] == nullptr) continue;
+					board[i][j]->m_collide = false;
+				}
+			}
+			create_point_on_board(board);
 		}
 		else if(_getch == 66) {
 			_getch = 0;
-			collection.set_direction('d', board);
-		// 	collection.m_point_list.push_back(Point());
-		// 	collection.m_point_list.back().assign();
+			set_direction('d', board);
+			for(int i = 0; i < ROW; i++) {
+				for(int j = 0; j < ROW; j++) {
+					if(board[i][j] == nullptr) continue;
+					board[i][j]->m_collide = false;
+				}
+			}
+			create_point_on_board(board);
 		}
 		else if(_getch == 67) {
 			_getch = 0;
-			collection.set_direction('r', board);
-			// collection.m_point_list.push_back(Point());
-			// collection.m_point_list.back().assign();
+			set_direction('r', board);
+			for(int i = 0; i < ROW; i++) {
+				for(int j = 0; j < ROW; j++) {
+					if(board[i][j] == nullptr) continue;
+					board[i][j]->m_collide = false;
+				}
+			}
+			create_point_on_board(board);
 		}
 		else if(_getch == 68) {
 			_getch = 0;
-			collection.set_direction('l', board);
-			// collection.m_point_list.push_back(Point());
-			// collection.m_point_list.back().assign();
+			set_direction('l', board);
+			for(int i = 0; i < ROW; i++) {
+				for(int j = 0; j < ROW; j++) {
+					if(board[i][j] == nullptr) continue;
+					board[i][j]->m_collide = false;
+				}
+			}
+			create_point_on_board(board);
 		}
 		else if(_getch == 113) running = false;
 	}

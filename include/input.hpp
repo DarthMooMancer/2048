@@ -6,7 +6,7 @@
 
 struct Input {
 	int _getch;
-	void get_input(bool &running, PointCollection &collection, Point* board[ROW][COL]);
+	void get_input(bool &running, Point* board[ROW][COL]);
 };
 
 #endif
