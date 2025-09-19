@@ -13,6 +13,8 @@ int main() {
 	create_point_on_board(window.m_board);
 	create_point_on_board(window.m_board);
 
+	// Create a way to win and lose
+
 	while (running) {
 		window.tick(16);
 		collide_with_adjacent_point(window.m_board);
